@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Appi ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Trebuchet MS', sans-serif;
+    background: #fff0f5;
+    color: #74334f;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 25px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    animation: fade 0.7s;
+}
+
+.screen.active {
+    display: flex;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    background: white;
+    padding: 35px 22px;
+    border-radius: 28px;
+    width: 100%;
+    max-width: 650px;
+    box-shadow: 0 10px 35px #e7a9c2;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(38px, 8vw, 65px);
+    color: #d45b91;
+    margin: 20px 0;
+}
+
+h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(28px, 6vw, 42px);
+    color: #d45b91;
+    margin: 15px;
+}
+
+p {
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 15px auto;
+    max-width: 650px;
+}
+
+button {
+    border: none;
+    background: #f5a6c6;
+    color: #672b48;
+    padding: 14px 27px;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.06);
+    background: #ed83af;
+}
+
+input {
+    padding: 14px;
+    border: 2px solid #f5a6c6;
+    border-radius: 15px;
+    font-size: 18px;
+    text-align: center;
+    margin: 15px;
+    width: 220px;
+    outline: none;
+}
+
+.heart {
+    font-size: 55px;
+    animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+    50% { transform: scale(1.2); }
+}
+
+.cake {
+    font-size: 110px;
+    margin: 20px;
+}
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+    max-width: 650px;
+    margin: 20px;
+}
+
+.anime-card {
+    background: #ffe1ed;
+    padding: 22px 10px;
+    border-radius: 20px;
+}
+
+.anime {
+    font-size: 55px;
+    margin-bottom: 12px;
+}
+
+.envelope {
+    background: #ffe0ed;
+    border: 2px solid #f5b5cd;
+    border-radius: 25px;
+    padding: 35px 20px;
+    width: 100%;
+    max-width: 440px;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.wish-text {
+    font-family: Georgia, serif;
+    font-size: 22px;
+    line-height: 1.6;
+    margin-top: 15px;
+}
+
+canvas {
+    background: white;
+    border: 2px dashed #e99ab9;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 600px;
+    height: 200px;
+    touch-action: none;
+}
+
+.signature-box {
+    width: 100%;
+    max-width: 620px;
+}
+
+.footer {
+    margin-top: 25px;
+    color: #c47b9b;
+}
+
+@media(max-width: 500px) {
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PASSWORD PAGE -->
+<section class="screen active" id="lock">
+    <div class="card">
+        <div class="heart">💗</div>
+        <p>A little surprise is waiting for you APPI...</p>
+        <h1>For Appi</h1>
+        <p>A special gift made with love, just for you.</p>
+        <p><b>Enter your secret password 🔐</b></p>
+
+        <input type="password" id="password" placeholder="Enter Password">
+        <p id="error" style="color:red"></p>
+
+        <button onclick="unlock()">Unlock My Surprise ❤️</button>
+    </div>
+</section>
+
+<!-- BIRTHDAY WELCOME -->
+<section class="screen" id="welcome">
+    <div class="heart">🌷</div>
+    <h1>Happy Birthday<br>Appi!</h1>
+
+    <p>
+        To my first friend, my forever supporter,
+        my personal advice machine, and the one person
+        who can annoy me and still be my favourite.
+        "If I could choose my family in every lifetime,
+        I'd choose you as my sister every single time."
+    </p>
+
+    <p>
+        You deserve all the happiness in this world.
+        Keep smiling, keep shining and never stop being you. 💕
+    </p>
+
+    <button onclick="go('cake')">Let's Celebrate APPI 🎉</button>
+</section>
+
+<!-- CAKE CUTTING -->
+<section class="screen" id="cake">
+    <p>THE MOMENT WE WERE WAITING FOR</p>
+    <h2>A Cake Just For You 🎂</h2>
+
+    <div class="cake" id="cakeEmoji">🎂</div>
+    <div id="candles">🕯️ 🕯️ 🕯️</div>
+
+    <p id="cakeMessage">
+        Close your eyes, make a wish and cut your cake!
+    </p>
+
+    <button id="cutButton" onclick="cutCake()">
+        Cut The Cake 🎂
+    </button>
+
+    <button onclick="go('bond')">Next Surprise →</button>
+</section>
+
+<!-- SIBLING BONDING -->
+<section class="screen" id="bond">
+    <p>OUR LITTLE UNIVERSE 🌸</p>
+    <h2>More Than Just Siblings</h2>
+
+    <p>
+        We fight, we laugh, we tease each other,
+        and sometimes we don't agree on anything.
+        But no matter what happens, you'll always
+        be one of my favourite people.
+    </p>
+
+    <div class="photo-grid">
+
+        <div class="anime-card">
+            <div class="anime">👦🏻🌸👩🏻</div>
+            <b>Built-in Best Friend</b>
+            <p>Different moods, same team.</p>
+        </div>
+
+        <div class="anime-card">
+            <div class="anime">🍟😤💗</div>
+            <b>Food & Silly Fights</b>
+            <p>I'll share my food. Sometimes! 😂</p>
+        </div>
+
+        <div class="anime-card">
+            <div class="anime">🌙🤝✨</div>
+            <b>Always Together</b>
+            <p>I'll always be in your corner.</p>
+        </div>
+
+        <div class="anime-card">
+            <div class="anime">🧸💕🌷</div>
+            <b>Forever My Appi</b>
+            <p>My favourite forever person.</p>
+        </div>
+
+    </div>
+
+    <button onclick="go('wishes')">Open Your Wishes 💌</button>
+</section>
+
+<!-- CHAIN OF WISHES -->
+<section class="screen" id="wishes">
+
+    <p>ONE LITTLE LETTER AT A TIME</p>
+    <h2>A Chain Of Wishes 💌</h2>
+
+    <p>Every envelope has a little message for you.</p>
+
+    <div class="envelope">
+        <div id="wishCount">LETTER 1 OF 7</div>
+        <div style="font-size:45px" id="envelopeIcon">💌</div>
+        <div class="wish-text" id="wishText">
+            Tap to open your first wish...
+        </div>
+    </div>
+
+    <button id="wishButton" onclick="nextWish()">
+        Open Letter ♡
+    </button>
+
+    <p id="wishHint">A little surprise is waiting inside.</p>
+
+    <button id="signatureNext" style="display:none"
+        onclick="go('sign')">
+        One Last Thing → 
+    </button>
+
+</section>
+
+<!-- SIGNATURE PAGE -->
+<section class="screen" id="sign">
+
+    <p>A MEMORY TO KEEP ✨</p>
+    <h2>One Little Signature</h2>
+
+    <p>
+        Appi, kya tumhara autograph milega??
+        this birthday memory official! ❤️
+    </p>
+
+    <div class="signature-box">
+        <canvas id="signCanvas" width="900" height="300"></canvas>
+    </div>
+
+    <button onclick="clearSign()">Clear</button>
+    <button onclick="saveSign()">Save My Signature 💗</button>
+
+    <p id="signStatus">Use your finger or mouse to sign.</p>
+
+    <button onclick="go('final')">Finish Surprise →</button>
+
+</section>
+
+<!-- FINAL PAGE -->
+<section class="screen" id="final">
+
+    <div class="heart">💖</div>
+
+    <h1>Always Your<br>Little Brother</h1>
+
+    <p>
+        Happy Birthday once again, Appi!
+    </p>
+
+    <p>
+        Thank you for being my guide,
+        my supporter, my partner in nonsense,
+        and one of the biggest blessings in my life.
+    </p>
+
+    <p>
+        May all your dreams come true.
+        May your smile never fade.
+        May life give you every happiness you deserve.
+    </p>
+
+    <h2>Love You Loads! 🥹💕</h2>
+
+    <p>Made with love, just for Appi.</p>
+
+    <button onclick="go('welcome')">
+        Replay Our Surprise ↻
+    </button>
+
+</section>
+
+<script>
+
+// PAGE NAVIGATION
+
+function go(id) {
+    document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+    });
+
+    document.getElementById(id).classList.add('active');
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+
+    if(id === 'final') confetti();
+}
+
+// PASSWORD
+
+function unlock() {
+    let pass = document.getElementById('password').value;
+
+    if(pass === '03-11') {
+        document.getElementById('error').innerText = '';
+        go('welcome');
+        confetti();
+    } else {
+        document.getElementById('error').innerText =
+        'Wrong password! Try again Appi ❤️';
+    }
+}
+
+document.getElementById('password').addEventListener('keydown', e => {
+    if(e.key === 'Enter') unlock();
+});
+
+// CONFETTI
+
+function confetti() {
+    const symbols = ['♥', '✦', '❀', '💕'];
+
+    for(let i = 0; i < 50; i++) {
+        let el = document.createElement('span');
+
+        el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+
+        el.style.position = 'fixed';
+        el.style.top = '-20px';
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.fontSize = '22px';
+        el.style.color = '#e879a7';
+        el.style.zIndex = '999';
+        el.style.pointerEvents = 'none';
+        el.style.transition = 'transform 3s linear, opacity 3s';
+
+        document.body.appendChild(el);
+
+        setTimeout(() => {
+            el.style.transform = 'translateY(110vh) rotate(600deg)';
+            el.style.opacity = '0';
+        }, 50);
+
+        setTimeout(() => el.remove(), 3500);
+    }
+}
+
+// CAKE CUTTING
+
+let cut = false;
+
+function cutCake() {
+    if(cut) return;
+
+    cut = true;
+
+    document.getElementById('cakeEmoji').innerText = '🍰';
+    document.getElementById('candles').innerText = '✨ 🎉 ✨';
+
+    document.getElementById('cakeMessage').innerText =
+    'Yay! Cake officially cut! May all your wishes come true! ❤️';
+
+    document.getElementById('cutButton').innerText = 'Cake Cut! 🎉';
+
+    confetti();
+}
+
+// WISHES
+
+const wishes = [
+    'May your smile always find a reason to shine. 🌷',
+
+    'May every dream you quietly carry become reality. ✨',
+
+    'May you always be surrounded by kindness, peace and happiness. 💕',
+
+    'May life surprise you with beautiful opportunities and adventures. 🌈',
+
+    'May your worries become lighter and your confidence grow stronger. 🧸',
+
+    'Thank you for every lesson, every bit of care and every time you stood by me. I may not say it enough, but it means the world. 🥹',
+
+    'No matter how grown up we get, may we never stop laughing at our silly jokes. Love you Appi! ❤️'
+];
+
+let wi = 0;
+
+function nextWish() {
+
+    if(wi >= wishes.length) return;
+
+    document.getElementById('wishCount').innerText =
+    'LETTER ' + (wi + 1) + ' OF ' + wishes.length;
+
+    document.getElementById('envelopeIcon').innerText = '💗';
+
+    document.getElementById('wishText').innerText = wishes[wi];
+
+    wi++;
+
+    if(wi < wishes.length) {
+        document.getElementById('wishButton').innerText =
+        'Open Next Letter →';
+
+        document.getElementById('wishHint').innerText =
+        'Another little wish is waiting...';
+    } else {
+        document.getElementById('wishButton').style.display = 'none';
+
+        document.getElementById('wishHint').innerText =
+        'Every wish was written with love. ❤️';
+
+        document.getElementById('signatureNext').style.display =
+        'inline-block';
+    }
+}
+
+// SIGNATURE PAD
+
+const canvas = document.getElementById('signCanvas');
+const ctx = canvas.getContext('2d');
+
+ctx.strokeStyle = '#a84470';
+ctx.lineWidth = 4;
+ctx.lineCap = 'round';
+
+let drawing = false;
+let hasInk = false;
+
+function getPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+        x: (e.clientX - rect.left) * canvas.width / rect.width,
+        y: (e.clientY - rect.top) * canvas.height / rect.height
+    };
+}
+
+canvas.addEventListener('pointerdown', e => {
+    drawing = true;
+    hasInk = true;
+
+    canvas.setPointerCapture(e.pointerId);
+
+    let p = getPosition(e);
+
+    ctx.beginPath();
+    ctx.moveTo(p.x, p.y);
+});
+
+canvas.addEventListener('pointermove', e => {
+    if(!drawing) return;
+
+    let p = getPosition(e);
+
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+});
+
+['pointerup', 'pointercancel'].forEach(event => {
+    canvas.addEventListener(event, () => {
+        drawing = false;
+    });
+});
+
+function clearSign() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    hasInk = false;
+
+    document.getElementById('signStatus').innerText =
+    'Sign whenever you are ready. ❤️';
+}
+
+function saveSign() {
+
+    if(!hasInk) {
+        document.getElementById('signStatus').innerText =
+        'Please add your signature first!';
+        return;
+    }
+
+    const link = document.createElement('a');
+
+    link.download = 'Appi-signature.png';
+
+    link.href = canvas.toDataURL('image/png');
+
+    link.click();
+
+    document.getElementById('signStatus').innerText =
+    'Your signature has been saved! 💕';
+}
+
+</script>
+
+</body>
+</html>
